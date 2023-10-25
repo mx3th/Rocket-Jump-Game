@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://bi4cbrccoxel6"]
+
+[ext_resource type="Texture2D" uid="uid://bhq2yuleaa1el" path="res://addons/kenney_prototype_textures/orange/texture_10.png" id="1_6rhuu"]
+[ext_resource type="Texture2D" uid="uid://dbln177olgn8b" path="res://addons/kenney_prototype_textures/green/texture_10.png" id="2_bakps"]
+[ext_resource type="Script" path="res://Level/LandingPad.gd" id="3_g56gj"]
+[ext_resource type="PackedScene" uid="uid://tsqw54u4arsc" path="res://player.tscn" id="4_j3aeh"]
+[ext_resource type="PackedScene" uid="uid://dsihmteivaiej" path="res://hazard.tscn" id="5_gvvfl"]
+[ext_resource type="PackedScene" uid="uid://cfj7xty3p8y04" path="res://background.tscn" id="6_b5wwt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ceeov"]
+albedo_texture = ExtResource("1_6rhuu")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ylbui"]
+albedo_texture = ExtResource("2_bakps")
+uv1_triplanar = true
+
+[node name="Level" type="Node3D"]
+
+[node name="LaunchPad" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.2, 0)
+material_override = SubResource("StandardMaterial3D_ceeov")
+use_collision = true
+size = Vector3(2, 0.5, 2)
+
+[node name="LandingPad" type="CSGBox3D" parent="." groups=["Goal"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.2, 0)
+material_override = SubResource("StandardMaterial3D_ylbui")
+use_collision = true
+size = Vector3(2, 0.5, 2)
+script = ExtResource("3_g56gj")
+file_path = "res://Level/level_07.tscn"
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.999976, 0.00698126, 0, -0.00698126, 0.999976, 0, 5, 9)
+top_level = true
+
+[node name="Player" parent="." instance=ExtResource("4_j3aeh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1.4, 0)
+
+[node name="Hazard" parent="." instance=ExtResource("5_gvvfl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 8, 0)
+destination = Vector3(0, -4, 0)
+duration = 3.0
+
+[node name="Hazard3" parent="." instance=ExtResource("5_gvvfl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 8, 0)
+destination = Vector3(0, -4, 0)
+duration = 3.0
+
+[node name="Hazard2" parent="." instance=ExtResource("5_gvvfl")]
+destination = Vector3(0, 4, 0)
+duration = 3.0
+
+[node name="Floor2" parent="." instance=ExtResource("6_b5wwt")]

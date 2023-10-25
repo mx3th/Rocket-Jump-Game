@@ -1,0 +1,75 @@
+[gd_scene load_steps=11 format=3 uid="uid://7wwynqh06eic"]
+
+[ext_resource type="Texture2D" uid="uid://bhq2yuleaa1el" path="res://addons/kenney_prototype_textures/orange/texture_10.png" id="1_bf2aq"]
+[ext_resource type="Texture2D" uid="uid://dbln177olgn8b" path="res://addons/kenney_prototype_textures/green/texture_10.png" id="2_vrcs3"]
+[ext_resource type="Script" path="res://Level/LandingPad.gd" id="3_6soqo"]
+[ext_resource type="PackedScene" uid="uid://tsqw54u4arsc" path="res://player.tscn" id="4_uq2lr"]
+[ext_resource type="PackedScene" uid="uid://dsihmteivaiej" path="res://hazard.tscn" id="5_a7fxf"]
+[ext_resource type="PackedScene" uid="uid://cfj7xty3p8y04" path="res://background.tscn" id="6_70o0d"]
+[ext_resource type="Texture2D" uid="uid://bksrj15wilsf0" path="res://addons/kenney_prototype_textures/red/texture_10.png" id="7_jndei"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ceeov"]
+albedo_texture = ExtResource("1_bf2aq")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ylbui"]
+albedo_texture = ExtResource("2_vrcs3")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b2sbx"]
+albedo_texture = ExtResource("7_jndei")
+uv1_triplanar = true
+
+[node name="Level" type="Node3D"]
+
+[node name="LaunchPad" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.2, 0)
+material_override = SubResource("StandardMaterial3D_ceeov")
+use_collision = true
+size = Vector3(2, 0.5, 2)
+
+[node name="LandingPad" type="CSGBox3D" parent="." groups=["Goal"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.2, 0)
+material_override = SubResource("StandardMaterial3D_ylbui")
+use_collision = true
+size = Vector3(2, 0.5, 2)
+script = ExtResource("3_6soqo")
+file_path = "res://Level/level_01.tscn"
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.999976, 0.00698126, 0, -0.00698126, 0.999976, 0, 5, 9)
+top_level = true
+
+[node name="Player" parent="." instance=ExtResource("4_uq2lr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1.4, 0)
+
+[node name="Hazard" parent="." instance=ExtResource("5_a7fxf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 6, 0)
+destination = Vector3(-8, 0, 0)
+duration = 4.0
+
+[node name="Floor2" parent="." instance=ExtResource("6_70o0d")]
+
+[node name="Floor4" type="CSGBox3D" parent="." groups=["Hazard"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
+use_collision = true
+size = Vector3(2, 2, 2)
+material = SubResource("StandardMaterial3D_b2sbx")
+
+[node name="Floor5" type="CSGBox3D" parent="." groups=["Hazard"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 3.5, 0)
+use_collision = true
+size = Vector3(2, 7, 2)
+material = SubResource("StandardMaterial3D_b2sbx")
+
+[node name="Floor6" type="CSGBox3D" parent="." groups=["Hazard"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3.5, 0)
+use_collision = true
+size = Vector3(2, 7, 2)
+material = SubResource("StandardMaterial3D_b2sbx")
+
+[node name="Floor7" type="CSGBox3D" parent="." groups=["Hazard"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 9, 0)
+use_collision = true
+size = Vector3(2, 2, 2)
+material = SubResource("StandardMaterial3D_b2sbx")
